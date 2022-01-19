@@ -7,8 +7,10 @@ import com.salesianostriana.dam.ejerciciotesting.repos.VentaRepositorio;
 import com.salesianostriana.dam.ejerciciotesting.services.VentaServicio;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -20,7 +22,8 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.lenient;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class MockitoTest {
 
     @Mock
@@ -40,7 +43,6 @@ public class MockitoTest {
         List<LineaDeVenta> lista = new ArrayList<>();
         lista.add(lineaDeVenta);
         Venta venta1 = new Venta(1L, LocalDate.of(2022, 01, 18), lista, c);
-        //He intentado poner 2L, pero no se puede crear una venta con id2 cuando no hay con id1 :/
         lenient().when(productoRepositorio.findOne("2")).thenReturn(new Producto("2", "Ordenador portatil", 499.0));
         lenient().when(ventaRepositorio.save(venta1)).thenReturn(venta1);
         Venta venta2 = ventaServicio.nuevaVenta(Map.of("2", 10), c);
@@ -83,4 +85,7 @@ public class MockitoTest {
         Venta venta2 = ventaServicio.removeLineaVenta(1L, "4");
         assertEquals(venta1, venta2);
     }
+
+
+
 }
