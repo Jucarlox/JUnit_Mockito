@@ -15,6 +15,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
@@ -54,5 +55,7 @@ public class MockitoTest2 {
         v.setLineasDeVenta(List.of(new LineaDeVenta(p,2,12.34)));
 
         lenient().when(ventaRepositorio.save(v)).thenReturn(v);
+
+        assertEquals(v, ventaServicio.nuevaVenta(carrito,c));
     }
 }
